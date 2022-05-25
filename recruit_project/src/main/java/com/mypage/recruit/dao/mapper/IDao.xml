@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mypage.recruit.dao.IDao" >
+
+	<select id="selectAll" resultType="com.mypage.recruit.dto.InfoDto">
+	
+		SELECT * FROM recruitinfo ORDER BY rDate DESC, cname ASC
+	
+	</select>
+
+
+	<insert id="insertInfo" parameterType="com.mypage.recruit.dto.InfoDto">
+	
+		INSERT INTO recruitinfo
+		VALUES((SELECT NVL(MAX(idnum), 0) + 1 FROM recruitinfo), #{cname}, #{endDate}, #{rdate}, #{rCurrent}, #{rLink}, #{interview})
+	
+	</insert>
+	
+	
+	<select id="selectOne" parameterType="int" resultType="com.mypage.recruit.dto.InfoDto">
+	
+		SELECT * FROM recruitinfo WHERE idnum = #{idnum}
+	
+	</select>
+	
+</mapper>
