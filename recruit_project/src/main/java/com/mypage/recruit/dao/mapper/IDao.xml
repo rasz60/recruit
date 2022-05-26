@@ -14,7 +14,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="insertInfo" parameterType="com.mypage.recruit.dto.InfoDto">
 	
 		INSERT INTO recruitinfo
-		VALUES((SELECT NVL(MAX(idnum), 0) + 1 FROM recruitinfo), #{cname}, #{endDate}, #{rdate}, #{rCurrent}, #{rLink}, #{interview})
+		VALUES((SELECT NUM FROM(SELECT IFNULL(MAX(idnum), 0) + 1 AS NUM FROM recruitinfo) A), 
+				#{cname}, 
+				#{endDate}, 
+				#{rdate}, 
+				#{rCurrent}, 
+				#{rLink}, 
+				#{interview},
+				#{rPosition},
+				#{rLocation},
+				#{pay},
+				#{rDesc}
+		)
 	
 	</insert>
 	
@@ -24,5 +35,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT * FROM recruitinfo WHERE idnum = #{idnum}
 	
 	</select>
+	
+	<update id="modInfo" parameterType="com.mypage.recruit.dto.InfoDto">
+	
+		UPDATE recruitinfo
+		
+		SET 
+		cname = #{cname},
+		endDate = #{endDate},
+		rDate = #{rdate},
+		rCurrent = #{rCurrent},
+		rLink = #{rLink},
+		interview = #{interview},
+		rPosition = #{rPosition},
+		rLocation = #{rLocation},
+		pay = #{pay},
+		rDesc = #{rDesc}
+		
+		WHERE
+		idnum = #{idnum}
+	
+	</update>
 	
 </mapper>

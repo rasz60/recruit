@@ -44,6 +44,16 @@ public class Dao implements IDao {
 		
 		return dto;
 	}
+
+
+	@Override
+	public int modInfo(InfoDto dto) {
+		
+		int result = sqlSession.update("modInfo", dto);
+		
+		
+		return 0;
+	}
 	
 	
 	

@@ -65,18 +65,18 @@
 
 		<div class="form-group row mx-0">		
 			<div class="col-4">
-				<label for="rposition">포지션</label>
-				<input type="text" class="form-control" id="rposition" name="rposition" />
+				<label for="rPosition">포지션</label>
+				<input type="text" class="form-control" id="rPosition" name="rPosition" />
 			</div>
 		
 			<div class="col-4">
-				<label for="rlocation">회사위치</label>
-				<input type="text" class="form-control" id="rlocation" name="rlocation" />
+				<label for="rLocation">회사위치</label>
+				<input type="text" class="form-control" id="rLocation" name="rLocation" />
 			</div>
 			
 			<div class="col-4">
-				<label for="rsallary">예상급여</label>
-				<input type="number" class="form-control" id="rsallary" name="rsallary" />
+				<label for="pay">예상급여</label>
+				<input type="number" class="form-control" id="pay" name="pay" />
 			</div>
 			
 			<div class="col-12 mt-3">
@@ -99,14 +99,14 @@
 </section>
 
 <script>
-
+/*
 $('#complete').click(function(e) {
 	e.preventDefault();
 	
 	console.log($('form').serialize());
 
 })
-
+*/
 
 </script>
 

@@ -9,12 +9,19 @@ public class InfoDto {
 	private String rCurrent;
 	private String rLink;
 	private String interview;
+	private String rPosition;
+	private String rLocation;
+	private String pay;
+	private String rDesc;
 	
 	public InfoDto() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public InfoDto(int idnum, String cname, String endDate, String rdate, String rCurrent, String rLink, String interview) {
+
+	
+	public InfoDto(int idnum, String cname, String endDate, String rdate, String rCurrent, String rLink,
+			String interview, String rPosition, String rLocation, String pay, String rDesc) {
 		super();
 		this.idnum = idnum;
 		this.cname = cname;
@@ -23,7 +30,44 @@ public class InfoDto {
 		this.rCurrent = rCurrent;
 		this.rLink = rLink;
 		this.interview = interview;
+		this.rPosition = rPosition;
+		this.rLocation = rLocation;
+		this.pay = pay;
+		this.rDesc = rDesc;
 	}
+
+	public String getrDesc() {
+		return rDesc;
+	}
+
+	public void setrDesc(String rDesc) {
+		this.rDesc = rDesc;
+	}
+
+	public String getrPosition() {
+		return rPosition;
+	}
+
+	public void setrPosition(String rPosition) {
+		this.rPosition = rPosition;
+	}
+
+	public String getrLocation() {
+		return rLocation;
+	}
+
+	public void setrLocation(String rLocation) {
+		this.rLocation = rLocation;
+	}
+
+	public String getPay() {
+		return pay;
+	}
+
+	public void setPay(String pay) {
+		this.pay = pay;
+	}
+
 	public int getIdnum() {
 		return idnum;
 	}

@@ -27,8 +27,8 @@
 	
 	<hr />
 	
-	<form action="reg_info" method="post">
-	
+	<form action="mod_info" method="post">
+		<input type="hidden" name="idnum" value="${dto.idnum }"  />
 		<div class="form-group">		
 			<label for="cname">회사명</label>
 			<input type="text" class="form-control" id="cname" name="cname" value="${dto.cname }" required />
@@ -65,18 +65,18 @@
 
 		<div class="form-group row mx-0">		
 			<div class="col-4">
-				<label for="rposition">포지션</label>
-				<input type="text" class="form-control" id="rposition" name="rposition" />
+				<label for="rPosition">포지션</label>
+				<input type="text" class="form-control" id="rPosition" name="rPosition" value="${dto.rPosition }"/>
 			</div>
 		
 			<div class="col-4">
-				<label for="rlocation">회사위치</label>
-				<input type="text" class="form-control" id="rlocation" name="rlocation" />
+				<label for="rLocation">회사위치</label>
+				<input type="text" class="form-control" id="rLocation" name="rLocation" value="${dto.rLocation }" />
 			</div>
 			
 			<div class="col-4">
-				<label for="rsallary">예상급여</label>
-				<input type="number" class="form-control" id="rsallary" name="rsallary" />
+				<label for="pay">예상급여</label>
+				<input type="number" class="form-control" id="pay" name="pay" value="${dto.pay }" />
 			</div>
 			
 			<div class="col-12 mt-3">
@@ -101,17 +101,23 @@
 
 <script>
 
+var rDesc = "<c:out value='${dto.rDesc}'/>";
+
+console.log(rDesc);
+
 $(document).ready(function() {
-	var val1 = $('#interview').attr('data-value');
 	
-	$('#interview').val(val1);
-
-	$('#complete').click(function(e) {
-		e.preventDefault();
-		
-		console.log($('form').serialize());
-
-	})
+	if ( rDesc.includes('코딩') ) {
+		$('input[name="chk1"]').attr('checked', 'checked');
+	}
+	
+	if ( rDesc.includes('1차') ) {
+		$('input[name="chk2"]').attr('checked', 'checked');
+	}
+	
+	if ( rDesc.includes('2차') ) {
+		$('input[name="chk3"]').attr('checked', 'checked');
+	}
 	
 })
 

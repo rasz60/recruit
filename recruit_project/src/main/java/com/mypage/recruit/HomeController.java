@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.mypage.recruit.service.InfoService;
 import com.mypage.recruit.service.ModService;
+import com.mypage.recruit.service.ModifyService;
 import com.mypage.recruit.service.RegService;
 
 /**
@@ -30,6 +31,8 @@ public class HomeController {
 	@Autowired
 	private ModService modService;
 	
+	@Autowired
+	private ModifyService modifyService;
 	
 	@RequestMapping("/")
 	public String home(HttpServletRequest request, Model model) {
@@ -62,5 +65,13 @@ public class HomeController {
 		modService.execute(request, model);
 		
 		return "mod";
+	}
+	
+	@RequestMapping("mod_info")
+	public String modInfo(HttpServletRequest request, Model model) {
+		
+		modifyService.execute(request, model);
+		
+		return "redirect:/";
 	}
 }

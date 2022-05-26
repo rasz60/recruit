@@ -11,5 +11,7 @@ public interface IDao {
 	public int insertInfo(InfoDto dto);
 	
 	public InfoDto getOneInfo(int idnum);
+
+	public int modInfo(InfoDto dto);
 	
 }

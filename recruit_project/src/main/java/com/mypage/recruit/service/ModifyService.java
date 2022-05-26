@@ -11,7 +11,8 @@ import com.mypage.recruit.dto.InfoDto;
 import com.mypage.recruit.util.ParseDto;
 
 @Service
-public class RegService implements RecruitService{
+public class ModifyService implements RecruitService {
+
 	
 	@Autowired
 	private IDao idao;
@@ -19,9 +20,13 @@ public class RegService implements RecruitService{
 	@Override
 	public void execute(HttpServletRequest request, Model model) {
 		
+		int idnum = Integer.parseInt(request.getParameter("idnum"));
+		
 		InfoDto dto = ParseDto.Parse(request);
 		
-		int result = idao.insertInfo(dto);
+		dto.setIdnum(idnum);
+		
+		int result = idao.modInfo(dto);
 		
 		System.out.println("result : " + (result > 0 ? "true" : "false"));
 		

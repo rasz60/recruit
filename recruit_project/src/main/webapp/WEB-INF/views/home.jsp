@@ -84,9 +84,10 @@ var now = [];
 					<td id="location" class="location col-1">장소</td>
 				</tr>
 				
-				<tr class="row mx-0 infobox${dto.idnum } infosub my-2 d-none">
-					<td class="col-4 border rounded mx-3">포지션</td>
-					<td class="col-7 border rounded mr-3">진행사항</td>
+				<tr class="row mx-0 infobox${dto.idnum } infosub my-2 d-none bg-light py-2">
+					<td class="col-2 border rounded ml-4 mr-2" style="border-top: none;">${dto.rPosition}</td>
+					<td class="col-7 border rounded mr-2 text-left" style="border-top: none;">${dto.rDesc}</td>
+					<td class="col-2 border rounded" style="border-top: none;">${dto.pay }만원</td>
 					<td class="col-12 row mx-0 justify-content-center" style="border-top: none;">
 						<a href="mod?idnum=${dto.idnum }" class="col-5 btn btn-sm btn-primary border-white">수정</a>
 						<a href="del?idnum=${dto.idnum }" class="col-5 btn btn-sm btn-danger border-white">삭제</a>
