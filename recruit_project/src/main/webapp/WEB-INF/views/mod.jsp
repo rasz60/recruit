@@ -81,9 +81,22 @@
 			
 			<div class="col-12 mt-3">
 				<p class="mb-1">진행내역</p>
-				<input type="checkbox" name="chk1" class="mr-2" value="true" />&nbsp;코딩테스트
-				<input type="checkbox" name="chk2" class="mr-2" value="true" />&nbsp;1차 면접
-				<input type="checkbox" name="chk3" class="mr-2" value="true" />&nbsp;2차 면접
+				<label>
+					<input type="checkbox" name="chk1" class="mr-2" value="open" />&nbsp;열람
+				</label>
+				
+				<label>
+					<input type="checkbox" name="chk2" class="mr-2" value="codingtest" />&nbsp;코딩테스트
+				</label>
+				
+				
+				<label>
+					<input type="checkbox" name="chk3" class="mr-2" value="1st" />&nbsp;1차 면접
+				</label>
+				
+				<label>
+					<input type="checkbox" name="chk4" class="mr-2" value="2nd" />&nbsp;2차 면접
+				</label>
 			</div>
 			
 		</div>
@@ -106,17 +119,23 @@ var rDesc = "<c:out value='${dto.rDesc}'/>";
 console.log(rDesc);
 
 $(document).ready(function() {
+
+	$('#interview').val($('#interview').attr('data-value'));
 	
-	if ( rDesc.includes('코딩') ) {
+	if ( rDesc.includes('열람') ) {
 		$('input[name="chk1"]').attr('checked', 'checked');
 	}
 	
-	if ( rDesc.includes('1차') ) {
+	if ( rDesc.includes('코딩') ) {
 		$('input[name="chk2"]').attr('checked', 'checked');
 	}
 	
-	if ( rDesc.includes('2차') ) {
+	if ( rDesc.includes('1차') ) {
 		$('input[name="chk3"]').attr('checked', 'checked');
+	}
+	
+	if ( rDesc.includes('2차') ) {
+		$('input[name="chk4"]').attr('checked', 'checked');
 	}
 	
 })

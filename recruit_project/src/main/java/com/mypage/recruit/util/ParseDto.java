@@ -53,18 +53,23 @@ public class ParseDto {
 		String chk1 = request.getParameter("chk1");
 		String chk2 = request.getParameter("chk2");
 		String chk3 = request.getParameter("chk3");
+		String chk4 = request.getParameter("chk4");
 		
 		String rDesc = "서류 접수 ";
 		
 		if ( chk1 != null ) {
-			rDesc += "> 코딩 테스트 ";
+			rDesc += "> 열람 ";
 		}
 		
 		if ( chk2 != null ) {
-			rDesc += "> 1차 면접 ";
+			rDesc += "> 코딩 테스트 ";
 		}
 		
 		if ( chk3 != null ) {
+			rDesc += "> 1차 면접 ";
+		}
+		
+		if ( chk4 != null ) {
 			rDesc += "> 2차 면접";
 		}
 		

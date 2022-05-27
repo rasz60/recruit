@@ -18,6 +18,13 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 <title>recruit</title>
 
+<style>
+td {
+	font-size: 14px;
+}
+
+</style>
+
 <script>
 
 var now = [];
@@ -45,6 +52,7 @@ var now = [];
 	
 	<hr />
 	
+	<a href="https://calendar.google.com/calendar/u/0/r/month/2022/5/1?tab=rc&pli=1" target="_blink" class="btn btn-sm btn-primary mb-2 float-right ml-1">상세일정</a>
 	<a href="reg" class="btn btn-sm btn-dark mb-2 float-right">등록</a>
 	
 	<span class="mx-3"></span>
@@ -78,14 +86,22 @@ var now = [];
 					<td id="date" class="date col-2">${dto.rdate}</td>
 					<td id="end_date" class="end_date col-2">${dto.endDate}</td>
 					<td id="now" class="now col-2">${dto.rCurrent}</td>
+
+					<td id="location" class="location col-1">${dto.rLocation}</td>
+					
 					<td class="link col-1">
-						<a href="${dto.rLink}" target="_blink">link</a>
+						<a href="${dto.rLink}" target="_blink">
+							<i class="fa-solid fa-arrow-up-right-from-square"></i>
+						</a>
 					</td>
-					<td id="location" class="location col-1">장소</td>
+					
 				</tr>
 				
-				<tr class="row mx-0 infobox${dto.idnum } infosub my-2 d-none bg-light py-2">
-					<td class="col-2 border rounded ml-4 mr-2" style="border-top: none;">${dto.rPosition}</td>
+				<tr class="row mx-0 infobox${dto.idnum } infosub d-none bg-light py-2">
+					<td class="col-2 border-bottom font-italic ml-5 mr-2 mb-2"><b>포지션</b></td>
+					<td class="col-7 border-bottom font-italic mr-2 mb-2"><b>진행상황</b></td>
+					<td class="col-2 border-bottom font-italic mb-2"><b>예상연봉</b></td>
+					<td class="col-2 border rounded ml-5 mr-2" style="border-top: none;">${dto.rPosition}</td>
 					<td class="col-7 border rounded mr-2 text-left" style="border-top: none;">${dto.rDesc}</td>
 					<td class="col-2 border rounded" style="border-top: none;">${dto.pay }만원</td>
 					<td class="col-12 row mx-0 justify-content-center" style="border-top: none;">
@@ -118,8 +134,13 @@ $(document).ready(function() {
 		if ( id == 'toggle_over' ) {
 			
 			var count_over = 0;
-			
 			overCount++;
+			
+			if ( overCount%2 != 0 ) {
+				$(this).addClass('btn-info');
+			} else {
+				$(this).removeClass('btn-info');
+			}
 			
 			for ( var i = 0; i < now.length; i++ ) {
 				
@@ -152,6 +173,10 @@ $(document).ready(function() {
 			$('span').text('총 ' + count + '건');
 			$('button#toggle_over').removeClass('d-none');
 			
+			$('.btn-default').removeClass('btn-info');
+			$('.btn-default').removeClass('btn-dark');
+			$(this).addClass('btn-dark');
+			
 			if ( overCount%2 != 0 ) {
 				overCount++;
 			}
@@ -159,6 +184,9 @@ $(document).ready(function() {
 		}
 		
 		else {
+			$('.btn-default').removeClass('btn-info');
+			$('.btn-default').removeClass('btn-dark');
+			$(this).addClass('btn-dark');
 			
 			showWhat(txt, now);
 			
@@ -169,6 +197,9 @@ $(document).ready(function() {
 	
 	$('tr.infomain').click(function() {
 		var id = $(this).attr('id');
+		
+		$('tr.infomain').removeClass('bg-light');
+		$(this).addClass('bg-light');
 		
 		$('tr.infosub').addClass('d-none');
 		$('tr.infosub.' + id).removeClass('d-none');

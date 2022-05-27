@@ -81,9 +81,22 @@
 			
 			<div class="col-12 mt-3">
 				<p class="mb-1">진행내역</p>
-				<input type="checkbox" name="chk1" class="mr-2" value="codingtest" />&nbsp;코딩테스트
-				<input type="checkbox" name="chk2" class="mr-2" value="1st" />&nbsp;1차 면접
-				<input type="checkbox" name="chk3" class="mr-2" value="2nd" />&nbsp;2차 면접
+				<label>
+					<input type="checkbox" name="chk1" class="mr-2" value="open" />&nbsp;열람
+				</label>
+				
+				<label>
+					<input type="checkbox" name="chk2" class="mr-2" value="codingtest" />&nbsp;코딩테스트
+				</label>
+				
+				
+				<label>
+					<input type="checkbox" name="chk3" class="mr-2" value="1st" />&nbsp;1차 면접
+				</label>
+				
+				<label>
+					<input type="checkbox" name="chk4" class="mr-2" value="2nd" />&nbsp;2차 면접
+				</label>
 			</div>
 		</div>
 		
@@ -97,18 +110,6 @@
 	</form>
 	
 </section>
-
-<script>
-/*
-$('#complete').click(function(e) {
-	e.preventDefault();
-	
-	console.log($('form').serialize());
-
-})
-*/
-
-</script>
 
 </body>
 </html>
