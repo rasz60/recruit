@@ -37,8 +37,10 @@ var now = [];
 <c:forEach items="${list}" var="dto">
 	
 	var obj = {
-			id : 'infobox' + '${dto.idnum}',
-			now : '${dto.rCurrent}'
+			id : '${dto.idnum}',
+			now : '${dto.rCurrent}',
+			endDate : '${dto.endDate}',
+			rDate : '${dto.rdate}'
 	};
 		
 	now.push(obj);
@@ -86,11 +88,11 @@ var now = [];
 		
 		<tbody>
 			<c:forEach items="${list}" var="dto">
-				<tr id="infobox${dto.idnum }" class="row mx-0 infobox${dto.idnum } infomain" style="cursor: pointer;">
+				<tr id="infobox${dto.idnum }" class="row mx-0 infobox${dto.idnum } infomain" data-count=1 style="cursor: pointer;">
 					<td id="name" class="name col-4">${dto.cname}</td>
 					<td id="date" class="date col-2">${dto.rdate}</td>
 					<td id="end_date" class="end_date col-2">${dto.endDate}</td>
-					<td id="now" class="now col-2">${dto.rCurrent}</td>
+					<td id="now${dto.idnum }" class="now col-2">${dto.rCurrent}</td>
 
 					<td id="location" class="location col-1">${dto.rLocation}</td>
 					
@@ -109,9 +111,13 @@ var now = [];
 					<td class="col-2 border rounded ml-5 mr-2" style="border-top: none;">${dto.rPosition}</td>
 					<td class="col-7 border rounded mr-2 text-left" style="border-top: none;">${dto.rDesc}</td>
 					<td class="col-2 border rounded" style="border-top: none;">${dto.pay }만원</td>
-					<td class="col-11 ml-5" style="border-top: none;">
-						<textarea class="form-control" rows="10" readonly>${dto.review}</textarea>
-					</td>
+					
+					<c:if test="${dto.review != ''}">
+						<td class="col-11 ml-5" style="border-top: none;">
+							<textarea class="form-control" rows="10" readonly>${dto.review}</textarea>
+						</td>
+					</c:if>
+					
 					<td class="col-12 row mx-0 justify-content-center" style="border-top: none;">
 						<a href="mod?idnum=${dto.idnum }" class="col-5 btn btn-sm btn-primary border-white">수정</a>
 						<a href="del?idnum=${dto.idnum }" class="col-5 btn btn-sm btn-danger border-white">삭제</a>
@@ -153,14 +159,20 @@ $(document).ready(function() {
 			for ( var i = 0; i < now.length; i++ ) {
 				
 				var obj = now[i];
-
+				
+				console.log(obj.id);
+				
 				if ( obj.now == '불합격' && overCount%2 != 0 ) {
-					$("tr#"+obj.id).addClass('d-none');
+					
+					$("tr#infobox"+obj.id).addClass('d-none');
 					count_over++;
+					
 				} 
 				
 				else if ( obj.now == '불합격' && overCount%2 == 0 ){
-					$("tr#"+obj.id).removeClass('d-none');
+					
+					$("tr#infobox"+obj.id).removeClass('d-none');
+					
 				}
 				
 			}
@@ -204,14 +216,25 @@ $(document).ready(function() {
 	});
 	
 	$('tr.infomain').click(function() {
+
 		var id = $(this).attr('id');
+		var count = $(this).attr('data-count');
 		
-		$('tr.infomain').removeClass('bg-light');
-		$(this).addClass('bg-light');
-		
-		$('tr.infosub').addClass('d-none');
-		$('tr.infosub.' + id).removeClass('d-none');
-		
+		if ( count%2 != 0 ) {
+			$('tr.infomain').attr('data-count', 1);		
+			$('tr.infomain').removeClass('bg-light');
+			$(this).addClass('bg-light');			
+			
+			$(this).attr('data-count', 2);
+			$('tr.infosub').addClass('d-none');
+			$('tr.infosub.' + id).removeClass('d-none');
+			
+		} else {
+			$('tr.infomain').attr('data-count', 1);
+			$('tr.infomain').removeClass('bg-light');
+			$('tr.infosub.' + id).addClass('d-none');
+			
+		}
 		
 	})
 });
@@ -226,13 +249,13 @@ function showWhat(txt, arr) {
 
 		if ( obj.now == txt ) {
 			
-			$("tr#"+obj.id).removeClass('d-none');
+			$("tr#infobox"+obj.id).removeClass('d-none');
 			show_count++;
 		} 
 		
 		else {
 			
-			$("tr#"+obj.id).addClass('d-none');
+			$("tr#infobox"+obj.id).addClass('d-none');
 			
 		}
 		
@@ -242,7 +265,9 @@ function showWhat(txt, arr) {
 	
 	$('span').text('총 ' + show_count + '건');
 	$('button#toggle_over').addClass('d-none');
+	
 }
+
 </script>
 </body>
 </html>
