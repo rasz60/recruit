@@ -14,4 +14,6 @@ public interface IDao {
 
 	public int modInfo(InfoDto dto);
 	
+	public int delInfo(int idnum);
+	
 }

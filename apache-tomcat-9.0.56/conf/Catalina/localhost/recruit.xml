@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context docBase="/Users/sixt/git/recruit/README.md/apache-tomcat-9.0.56/wtpwebapps/recruit_project" path="/recruit" reloadable="true" source="org.eclipse.jst.jee.server:recruit_project"/>

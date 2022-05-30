@@ -13,6 +13,7 @@ public class InfoDto {
 	private String rLocation;
 	private String pay;
 	private String rDesc;
+	private String review;
 	
 	public InfoDto() {
 		super();
@@ -21,7 +22,7 @@ public class InfoDto {
 
 	
 	public InfoDto(int idnum, String cname, String endDate, String rdate, String rCurrent, String rLink,
-			String interview, String rPosition, String rLocation, String pay, String rDesc) {
+			String interview, String rPosition, String rLocation, String pay, String rDesc, String review) {
 		super();
 		this.idnum = idnum;
 		this.cname = cname;
@@ -34,83 +35,129 @@ public class InfoDto {
 		this.rLocation = rLocation;
 		this.pay = pay;
 		this.rDesc = rDesc;
+		this.review = review;
 	}
 
-	public String getrDesc() {
-		return rDesc;
+
+	public int getIdnum() {
+		return idnum;
 	}
 
-	public void setrDesc(String rDesc) {
-		this.rDesc = rDesc;
+
+	public void setIdnum(int idnum) {
+		this.idnum = idnum;
 	}
+
+
+	public String getCname() {
+		return cname;
+	}
+
+
+	public void setCname(String cname) {
+		this.cname = cname;
+	}
+
+
+	public String getEndDate() {
+		return endDate;
+	}
+
+
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+
+
+	public String getRdate() {
+		return rdate;
+	}
+
+
+	public void setRdate(String rdate) {
+		this.rdate = rdate;
+	}
+
+
+	public String getrCurrent() {
+		return rCurrent;
+	}
+
+
+	public void setrCurrent(String rCurrent) {
+		this.rCurrent = rCurrent;
+	}
+
+
+	public String getrLink() {
+		return rLink;
+	}
+
+
+	public void setrLink(String rLink) {
+		this.rLink = rLink;
+	}
+
+
+	public String getInterview() {
+		return interview;
+	}
+
+
+	public void setInterview(String interview) {
+		this.interview = interview;
+	}
+
 
 	public String getrPosition() {
 		return rPosition;
 	}
 
+
 	public void setrPosition(String rPosition) {
 		this.rPosition = rPosition;
 	}
+
 
 	public String getrLocation() {
 		return rLocation;
 	}
 
+
 	public void setrLocation(String rLocation) {
 		this.rLocation = rLocation;
 	}
+
 
 	public String getPay() {
 		return pay;
 	}
 
+
 	public void setPay(String pay) {
 		this.pay = pay;
 	}
 
-	public int getIdnum() {
-		return idnum;
-	}
-	public void setIdnum(int idnum) {
-		this.idnum = idnum;
-	}
-	public String getCname() {
-		return cname;
-	}
-	public void setCname(String cname) {
-		this.cname = cname;
-	}
-	public String getEndDate() {
-		return endDate;
-	}
-	public void setEndDate(String endDate) {
-		this.endDate = endDate;
-	}
-	public String getRdate() {
-		return rdate;
-	}
-	public void setRdate(String rdate) {
-		this.rdate = rdate;
-	}
-	public String getrCurrent() {
-		return rCurrent;
-	}
-	public void setrCurrent(String rCurrent) {
-		this.rCurrent = rCurrent;
-	}
-	public String getrLink() {
-		return rLink;
-	}
-	public void setrLink(String rLink) {
-		this.rLink = rLink;
-	}
-	public String getInterview() {
-		return interview;
-	}
-	public void setInterview(String interview) {
-		this.interview = interview;
+
+	public String getrDesc() {
+		return rDesc;
 	}
 
+
+	public void setrDesc(String rDesc) {
+		this.rDesc = rDesc;
+	}
+
+
+	public String getReview() {
+		return review;
+	}
+
+
+	public void setReview(String review) {
+		this.review = review;
+	}
+	
 	
 	
 }

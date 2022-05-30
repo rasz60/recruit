@@ -52,7 +52,16 @@ public class Dao implements IDao {
 		int result = sqlSession.update("modInfo", dto);
 		
 		
-		return 0;
+		return result;
+	}
+
+
+	@Override
+	public int delInfo(int idnum) {
+		
+		int result = sqlSession.delete("delInfo", idnum);
+		
+		return result;
 	}
 	
 	

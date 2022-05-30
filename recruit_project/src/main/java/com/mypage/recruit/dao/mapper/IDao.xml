@@ -24,7 +24,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				#{rPosition},
 				#{rLocation},
 				#{pay},
-				#{rDesc}
+				#{rDesc},
+				#{review}
 		)
 	
 	</insert>
@@ -50,11 +51,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		rPosition = #{rPosition},
 		rLocation = #{rLocation},
 		pay = #{pay},
-		rDesc = #{rDesc}
+		rDesc = #{rDesc},
+		review = #{review}
 		
 		WHERE
 		idnum = #{idnum}
 	
 	</update>
+	
+	<delete id="delInfo" parameterType="int">
+		DELETE FROM recruitinfo WHERE idnum = #{idnum}
+	</delete>
 	
 </mapper>

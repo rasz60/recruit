@@ -49,6 +49,7 @@ public class ParseDto {
 		String rPosition = request.getParameter("rPosition");
 		String rLocation = request.getParameter("rLocation");
 		String pay = request.getParameter("pay");
+		String review = request.getParameter("review");
 		
 		String chk1 = request.getParameter("chk1");
 		String chk2 = request.getParameter("chk2");
@@ -73,7 +74,7 @@ public class ParseDto {
 			rDesc += "> 2차 면접";
 		}
 		
-		InfoDto dto = new InfoDto(0, cName, endDate, rDate, rCurrent, rLink, interview, rPosition, rLocation, pay, rDesc);
+		InfoDto dto = new InfoDto(0, cName, endDate, rDate, rCurrent, rLink, interview, rPosition, rLocation, pay, rDesc, review);
 		
 		
 		return dto;
