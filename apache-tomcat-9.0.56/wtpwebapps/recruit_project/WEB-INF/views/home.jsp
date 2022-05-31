@@ -70,6 +70,7 @@ var now = [];
 	<button id="show_1st" class="btn btn-sm btn-default font-italic">1차 대기중</button>
 	<button id="show_2nd" class="btn btn-sm btn-default font-italic">2차 대기중</button>
 	<button id="show_over" class="btn btn-sm btn-default font-italic">불합격</button>
+	<button id="show_pass" class="btn btn-sm btn-default font-italic">합격</button>
 	<button id="toggle_over" class="btn btn-sm btn-default font-italic">불합격 제외하기</button>
 	
 	
