@@ -73,7 +73,23 @@ var now = [];
 	<button id="show_pass" class="btn btn-sm btn-default font-italic">합격</button>
 	<button id="toggle_over" class="btn btn-sm btn-default font-italic">불합격 제외하기</button>
 	
+	<hr />
 	
+	<form action="search" id="search" class="row mx-0 my-2">
+		<div class="form-group col-3 my-0">
+			<select name="cname" id="keyword" class="custom-select text-center" style="border: none; border-bottom : 1px solid #ced4da; border-radius: 0">
+				<option value="cname">회사명</option>
+			</select>
+		</div>
+		
+		<div class="form-group col-8 my-0">
+			<input type="text" id="cname" class="form-control border-none" style="border: none; border-bottom : 1px solid #ced4da; border-radius: 0" />
+		</div>
+		
+		<button type="submit" id="searchBtn" class="btn btn-sm btn-dark col-1">
+			<i class="fa-solid fa-magnifying-glass"></i>
+		</button>
+	</form>
 	
 	<table id="table" class="table table-hover text-center">
 		<thead>
@@ -138,6 +154,87 @@ let count = now.length;
 $(document).ready(function() {
 	
 	$('span').text('총 ' + count + '건');
+	
+	$('form#search').submit(function(e) {
+		e.preventDefault();
+		$('tr[id^=infobox]').remove();
+		
+		let key = $('select#keyword').val();
+		let cname = $('input#cname').val();
+		
+		if ( cname != null ) {
+		
+		$.ajax({
+			url : 'search',
+			type : 'post',
+			data : { 
+					key : key,
+					cname : cname
+			},
+			success : function(data) {
+				
+				$('button.btn-default').removeClass('d-none');
+				$('button.btn-default').addClass('d-none');
+				$('button#show_all').removeClass('d-none');
+				
+				
+				
+				if ( data != '' ) {
+					
+					let box = '<tr id="infobox' + data.idnum +'" class="row mx-0 infobox' + data.idnum +' infomain" data-count=1 style="cursor: pointer;">';
+					box += '<td id="name" class="name col-4">' + data.cname +'</td>';
+					box += '<td id="date" class="date col-2">' + data.rdate +'</td>';
+					box += '<td id="end_date" class="end_date col-2">' + data.endDate +'</td>';
+					box += '<td id="now' + data.idnum +'" class="now col-2">' + data.rCurrent +'</td>';
+					box += '<td id="location" class="location col-1">' + data.rLocation +'</td>';
+					box += '<td class="link col-1">';
+					box += '<a href="' + data.rLink +'" target="_blink">';
+					box += '<i class="fa-solid fa-arrow-up-right-from-square"></i>';
+					box += '</a>';
+					box += '</td>';
+					box += '</tr>';
+					box += '<tr class="row mx-0 infobo' + data.idnum + 'infosub d-none bg-light py-2">';
+					box += '<td class="col-2 border-bottom font-italic ml-5 mr-2 mb-2"><b>포지션</b></td>';
+					box += '<td class="col-7 border-bottom font-italic mr-2 mb-2"><b>진행상황</b></td>';
+					box += '<td class="col-2 border-bottom font-italic mb-2"><b>예상연봉</b></td>';
+					box += '<td class="col-2 border rounded ml-5 mr-2" style="border-top: none;">' + data.rPosition +'</td>';
+					box += '<td class="col-7 border rounded mr-2 text-left" style="border-top: none;">' + data.rDesc +'</td>';
+					box += '<td class="col-2 border rounded" style="border-top: none;">' + data.pay +'만원</td>';
+					
+					if ( data.review != '' ) {
+						box += '<td class="col-11 ml-5" style="border-top: none;">';
+						box += '<textarea class="form-control" rows="10" readonly>' + data.review +'</textarea>';
+						box += '</td>';
+					}
+					
+					box += '<td class="col-12 row mx-0 justify-content-center" style="border-top: none;">';
+					box += '<a href="mod?idnum=' + data.idnum + '" class="col-5 btn btn-sm btn-primary border-white">수정</a>';
+					box += '<a href="del?idnum=' + data.idnum + '" class="col-5 btn btn-sm btn-danger border-white">삭제</a>';
+					box += '</td>';
+					box += '</tr>';
+					
+					$('#table>tbody').html(box);
+				}
+				
+				else {
+					console.log('null');
+				}
+				
+			},
+			error : function(data) {
+				console.log(data);
+			}
+		})
+		
+		}
+		
+		else {
+			return false;
+		}
+		
+		
+		
+	});
 	
 	$('.btn-default').click(function() {
 		
