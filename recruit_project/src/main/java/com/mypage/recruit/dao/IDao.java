@@ -16,4 +16,6 @@ public interface IDao {
 	
 	public int delInfo(int idnum);
 	
+	public InfoDto search(String cname);
+	
 }

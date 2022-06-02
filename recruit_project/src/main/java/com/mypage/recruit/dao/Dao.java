@@ -63,6 +63,18 @@ public class Dao implements IDao {
 		
 		return result;
 	}
+
+
+	@Override
+	public InfoDto search(String cname) {
+		
+		System.out.println(cname);
+		
+		InfoDto dto = sqlSession.selectOne("search", cname);
+		
+		
+		return dto;
+	}
 	
 	
 	

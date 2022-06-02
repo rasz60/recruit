@@ -8,7 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.mypage.recruit.dao.IDao;
+import com.mypage.recruit.dto.InfoDto;
 import com.mypage.recruit.service.InfoService;
 import com.mypage.recruit.service.ModService;
 import com.mypage.recruit.service.ModifyService;
@@ -33,6 +36,9 @@ public class HomeController {
 	
 	@Autowired
 	private ModifyService modifyService;
+	
+	@Autowired
+	private IDao idao;
 	
 	@RequestMapping("/")
 	public String home(HttpServletRequest request, Model model) {
@@ -73,5 +79,17 @@ public class HomeController {
 		modifyService.execute(request, model);
 		
 		return "redirect:/";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "search", produces="application/json; charset=UTF-8")
+	public InfoDto search(HttpServletRequest request, Model model) {
+		
+		System.out.println("in");
+		
+		InfoDto dto = idao.search(request.getParameter("cname"));
+		
+		return dto;
+		
 	}
 }
