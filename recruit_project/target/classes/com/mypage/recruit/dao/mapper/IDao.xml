@@ -65,8 +65,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	
 	<select id="search" parameterType="String" resultType="com.mypage.recruit.dto.InfoDto">
-	
-		SELECT * FROM recruitinfo WHERE cname = #{cname}
+		<![CDATA[
+		SELECT * FROM recruitinfo WHERE cname LIKE CONCAT('%', #{parameter}, '%')
+		]]>
 	
 	</select>
 	

@@ -1,5 +1,7 @@
 package com.mypage.recruit;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -83,13 +85,13 @@ public class HomeController {
 	
 	@ResponseBody
 	@RequestMapping(value = "search", produces="application/json; charset=UTF-8")
-	public InfoDto search(HttpServletRequest request, Model model) {
+	public ArrayList<InfoDto> search(HttpServletRequest request, Model model) {
 		
 		System.out.println("in");
 		
-		InfoDto dto = idao.search(request.getParameter("cname"));
+		ArrayList<InfoDto> dtos = idao.search(request.getParameter("cname"));
 		
-		return dto;
+		return dtos;
 		
 	}
 }

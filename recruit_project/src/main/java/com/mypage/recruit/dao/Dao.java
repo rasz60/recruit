@@ -66,14 +66,14 @@ public class Dao implements IDao {
 
 
 	@Override
-	public InfoDto search(String cname) {
+	public ArrayList<InfoDto> search(String cname) {
 		
 		System.out.println(cname);
 		
-		InfoDto dto = sqlSession.selectOne("search", cname);
+		ArrayList<InfoDto> dtos = (ArrayList)sqlSession.selectList("search", cname);
 		
-		
-		return dto;
+		System.out.println(dtos.size());
+		return dtos;
 	}
 	
 	

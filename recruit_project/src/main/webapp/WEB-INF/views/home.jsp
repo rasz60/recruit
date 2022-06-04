@@ -157,7 +157,9 @@ $(document).ready(function() {
 	
 	$('form#search').submit(function(e) {
 		e.preventDefault();
+		
 		$('tr[id^=infobox]').remove();
+		$('tr.infosub').remove();
 		
 		let key = $('select#keyword').val();
 		let cname = $('input#cname').val();
@@ -177,48 +179,9 @@ $(document).ready(function() {
 				$('button.btn-default').addClass('d-none');
 				$('button#show_all').removeClass('d-none');
 				
+				console.log(data.length);
 				
-				
-				if ( data != '' ) {
-					
-					let box = '<tr id="infobox' + data.idnum +'" class="row mx-0 infobox' + data.idnum +' infomain" data-count=1 style="cursor: pointer;">';
-					box += '<td id="name" class="name col-4">' + data.cname +'</td>';
-					box += '<td id="date" class="date col-2">' + data.rdate +'</td>';
-					box += '<td id="end_date" class="end_date col-2">' + data.endDate +'</td>';
-					box += '<td id="now' + data.idnum +'" class="now col-2">' + data.rCurrent +'</td>';
-					box += '<td id="location" class="location col-1">' + data.rLocation +'</td>';
-					box += '<td class="link col-1">';
-					box += '<a href="' + data.rLink +'" target="_blink">';
-					box += '<i class="fa-solid fa-arrow-up-right-from-square"></i>';
-					box += '</a>';
-					box += '</td>';
-					box += '</tr>';
-					box += '<tr class="row mx-0 infobo' + data.idnum + 'infosub d-none bg-light py-2">';
-					box += '<td class="col-2 border-bottom font-italic ml-5 mr-2 mb-2"><b>포지션</b></td>';
-					box += '<td class="col-7 border-bottom font-italic mr-2 mb-2"><b>진행상황</b></td>';
-					box += '<td class="col-2 border-bottom font-italic mb-2"><b>예상연봉</b></td>';
-					box += '<td class="col-2 border rounded ml-5 mr-2" style="border-top: none;">' + data.rPosition +'</td>';
-					box += '<td class="col-7 border rounded mr-2 text-left" style="border-top: none;">' + data.rDesc +'</td>';
-					box += '<td class="col-2 border rounded" style="border-top: none;">' + data.pay +'만원</td>';
-					
-					if ( data.review != '' ) {
-						box += '<td class="col-11 ml-5" style="border-top: none;">';
-						box += '<textarea class="form-control" rows="10" readonly>' + data.review +'</textarea>';
-						box += '</td>';
-					}
-					
-					box += '<td class="col-12 row mx-0 justify-content-center" style="border-top: none;">';
-					box += '<a href="mod?idnum=' + data.idnum + '" class="col-5 btn btn-sm btn-primary border-white">수정</a>';
-					box += '<a href="del?idnum=' + data.idnum + '" class="col-5 btn btn-sm btn-danger border-white">삭제</a>';
-					box += '</td>';
-					box += '</tr>';
-					
-					$('#table>tbody').html(box);
-				}
-				
-				else {
-					console.log('null');
-				}
+				makeBox(data);
 				
 			},
 			error : function(data) {
@@ -282,10 +245,12 @@ $(document).ready(function() {
 			else {
 				$('span').text('총 ' + count + '건');
 			}
-
 		} 
 		
 		else if ( id == 'show_all' ) {
+			
+			makeBox(now);
+			
 			count = now.length;
 			$('tr.infomain').removeClass('d-none');
 			$('span').text('총 ' + count + '건');
@@ -310,32 +275,35 @@ $(document).ready(function() {
 			
 		}
 		
-		
 	});
 	
-	$('tr.infomain').click(function() {
-
-		var id = $(this).attr('id');
-		var count = $(this).attr('data-count');
-		
-		if ( count%2 != 0 ) {
-			$('tr.infomain').attr('data-count', 1);		
-			$('tr.infomain').removeClass('bg-light');
-			$(this).addClass('bg-light');			
-			
-			$(this).attr('data-count', 2);
-			$('tr.infosub').addClass('d-none');
-			$('tr.infosub.' + id).removeClass('d-none');
-			
-		} else {
-			$('tr.infomain').attr('data-count', 1);
-			$('tr.infomain').removeClass('bg-light');
-			$('tr.infosub.' + id).addClass('d-none');
-			
-		}
-		
-	})
 });
+
+
+$(document).on('click', 'tr.infomain', function() {
+
+	var id = $(this).attr('id');
+	var count = $(this).attr('data-count');
+	
+	if ( count%2 != 0 ) {
+		$('tr.infomain').attr('data-count', 1);		
+		$('tr.infomain').removeClass('bg-light');
+		$(this).addClass('bg-light');			
+		
+		$(this).attr('data-count', 2);
+		$('tr.infosub').addClass('d-none');
+		$('tr.infosub.' + id).removeClass('d-none');
+		
+	} else {
+		$('tr.infomain').attr('data-count', 1);
+		$('tr.infomain').removeClass('bg-light');
+		$('tr.infosub.' + id).addClass('d-none');
+		
+	}
+	
+})
+
+
 
 function showWhat(txt, arr) {
 	
@@ -364,6 +332,54 @@ function showWhat(txt, arr) {
 	$('span').text('총 ' + show_count + '건');
 	$('button#toggle_over').addClass('d-none');
 	
+}
+
+function makeBox(data) {
+	
+	for ( var i = 0; i < data.length; i++ ) {
+		
+		if ( data[i] != '' ) {
+			
+			let box = '<tr id="infobox' + data[i].idnum +'" class="row mx-0 infobox' + data[i].idnum +' infomain" data-count=1 style="cursor: pointer;">';
+			box += '<td id="name" class="name col-4">' + data[i].cname +'</td>';
+			box += '<td id="date" class="date col-2">' + data[i].rdate +'</td>';
+			box += '<td id="end_date" class="end_date col-2">' + data[i].endDate +'</td>';
+			box += '<td id="now' + data[i].idnum +'" class="now col-2">' + data[i].rCurrent +'</td>';
+			box += '<td id="location" class="location col-1">' + data[i].rLocation +'</td>';
+			box += '<td class="link col-1">';
+			box += '<a href="' + data[i].rLink +'" target="_blink">';
+			box += '<i class="fa-solid fa-arrow-up-right-from-square"></i>';
+			box += '</a>';
+			box += '</td>';
+			box += '</tr>';
+			box += '<tr class="row mx-0 infobox' + data[i].idnum + ' infosub d-none bg-light py-2">';
+			box += '<td class="col-2 border-bottom font-italic ml-5 mr-2 mb-2"><b>포지션</b></td>';
+			box += '<td class="col-7 border-bottom font-italic mr-2 mb-2"><b>진행상황</b></td>';
+			box += '<td class="col-2 border-bottom font-italic mb-2"><b>예상연봉</b></td>';
+			box += '<td class="col-2 border rounded ml-5 mr-2" style="border-top: none;">' + data[i].rPosition +'</td>';
+			box += '<td class="col-7 border rounded mr-2 text-left" style="border-top: none;">' + data[i].rDesc +'</td>';
+			box += '<td class="col-2 border rounded" style="border-top: none;">' + data[i].pay +'만원</td>';
+			
+			if ( data[i].review != '' ) {
+				box += '<td class="col-11 ml-5" style="border-top: none;">';
+				box += '<textarea class="form-control" rows="10" readonly>' + data[i].review +'</textarea>';
+				box += '</td>';
+			}
+			
+			box += '<td class="col-12 row mx-0 justify-content-center" style="border-top: none;">';
+			box += '<a href="mod?idnum=' + data[i].idnum + '" class="col-5 btn btn-sm btn-primary border-white">수정</a>';
+			box += '<a href="del?idnum=' + data[i].idnum + '" class="col-5 btn btn-sm btn-danger border-white">삭제</a>';
+			box += '</td>';
+			box += '</tr>';
+			
+			$('#table>tbody').append(box);
+		}
+		
+		else {
+			console.log('null');
+		}
+	
+	}
 }
 
 </script>
