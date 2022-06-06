@@ -89,7 +89,7 @@ public class HomeController {
 		
 		System.out.println("in");
 		
-		ArrayList<InfoDto> dtos = idao.search(request.getParameter("cname"));
+		ArrayList<InfoDto> dtos = idao.search(request);
 		
 		return dtos;
 		

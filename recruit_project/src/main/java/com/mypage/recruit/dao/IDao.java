@@ -2,6 +2,8 @@ package com.mypage.recruit.dao;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.mypage.recruit.dto.InfoDto;
 
 public interface IDao {
@@ -16,6 +18,6 @@ public interface IDao {
 	
 	public int delInfo(int idnum);
 	
-	public ArrayList<InfoDto> search(String cname);
+	public ArrayList<InfoDto> search(HttpServletRequest request);
 	
 }

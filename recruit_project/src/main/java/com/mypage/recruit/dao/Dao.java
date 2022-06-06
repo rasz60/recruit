@@ -2,6 +2,8 @@ package com.mypage.recruit.dao;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.mypage.recruit.dto.InfoDto;
+import com.mypage.recruit.dto.SearchDto;
 
 @Repository
 public class Dao implements IDao {
@@ -66,11 +69,30 @@ public class Dao implements IDao {
 
 
 	@Override
-	public ArrayList<InfoDto> search(String cname) {
+	public ArrayList<InfoDto> search(HttpServletRequest request) {
 		
-		System.out.println(cname);
+		String key = request.getParameter("key");
+		String val1 = request.getParameter("val1");
+		String val2 = request.getParameter("val2");
 		
-		ArrayList<InfoDto> dtos = (ArrayList)sqlSession.selectList("search", cname);
+		SearchDto dto = new SearchDto(key, val1, val2);
+		
+		ArrayList<InfoDto> dtos = new ArrayList<>();
+		
+		switch(key) {
+			case "rdate" :
+				dtos = (ArrayList)sqlSession.selectList("searchDate", dto);
+				break;
+			
+			case "pay" :
+				dtos = (ArrayList)sqlSession.selectList("searchPay", dto);
+				break;
+			
+			default :
+				dtos = (ArrayList)sqlSession.selectList("search", dto);
+				break;
+				
+		}
 		
 		System.out.println(dtos.size());
 		return dtos;
