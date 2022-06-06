@@ -64,12 +64,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</delete>
 	
 	
-	<select id="search" parameterType="String" resultType="com.mypage.recruit.dto.InfoDto">
-	
-		SELECT * FROM recruitinfo WHERE cname = #{cname}
+	<select id="search" parameterType="com.mypage.recruit.dto.SearchDto" resultType="com.mypage.recruit.dto.InfoDto">
+		<![CDATA[
+		SELECT * FROM recruitinfo WHERE ${key} LIKE CONCAT('%', #{val1}, '%') ORDER BY rDate DESC, cname ASC
+		]]>
 	
 	</select>
+
+	<select id="searchDate" parameterType="com.mypage.recruit.dto.SearchDto" resultType="com.mypage.recruit.dto.InfoDto">
+		<![CDATA[
+		SELECT * FROM recruitinfo WHERE rdate >= #{val1} AND rdate <= #{val2} ORDER BY rDate DESC, cname ASC
+		]]>
+	</select>
 	
-	
+	<select id="searchPay" parameterType="com.mypage.recruit.dto.SearchDto" resultType="com.mypage.recruit.dto.InfoDto">
+		SELECT * FROM recruitinfo WHERE pay >= #{val1} ORDER BY rDate DESC, cname ASC
+	</select>
 	
 </mapper>
