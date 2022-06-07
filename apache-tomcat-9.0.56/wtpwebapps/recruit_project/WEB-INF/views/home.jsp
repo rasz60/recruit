@@ -40,7 +40,8 @@ var now = [];
 			id : '${dto.idnum}',
 			now : '${dto.rCurrent}',
 			endDate : '${dto.endDate}',
-			rDate : '${dto.rdate}'
+			rDate : '${dto.rdate}',
+			desc : '${dto.rDesc}'
 	};
 		
 	now.push(obj);
@@ -65,6 +66,7 @@ var now = [];
 	<span class="mx-3"></span>
 	<button id="go_back" class="btn btn-sm btn-default font-italic d-none">전체보기</button>
 	<button id="show_all" class="btn btn-sm btn-default btn-dark font-italic">전체보기</button>
+	<button id="show_never" class="btn btn-sm btn-default font-italic">미열람</button>
 	<button id="show_paper" class="btn btn-sm btn-default font-italic">서류 대기중</button>
 	<button id="show_test" class="btn btn-sm btn-default font-italic">코딩테스트</button>
 	<button id="show_1st" class="btn btn-sm btn-default font-italic">1차 대기중</button>
@@ -271,6 +273,8 @@ $(document).ready(function() {
 					
 					makeBox(data);
 					
+					count = now.length;
+					
 				},
 				error : function(data) {
 					console.log(data);
@@ -326,7 +330,42 @@ $(document).ready(function() {
 			
 		}
 		
+		else if ( id == 'show_never' ) {
+			
+			$('.btn-default').removeClass('btn-info');
+			$('.btn-default').removeClass('btn-dark');
+			$(this).addClass('btn-dark');
+			
+			
+			var show_count = 0;
+			
+			for ( var i = 0; i < now.length; i++ ) {
+				
+				var obj = now[i];
+
+				if ( obj.desc.indexOf('열람') >= 0) {
+					
+					$("tr#infobox"+obj.id).addClass('d-none');
+					
+				} 
+				
+				else {
+					
+					$("tr#infobox"+obj.id).removeClass('d-none');
+					show_count++;
+				}
+				
+			}
+			
+			count = show_count;
+			
+			$('span').text('총 ' + show_count + '건');
+			$('button[id^=toggle_over]').addClass('d-none');
+			
+		}
+		
 		else {
+			
 			$('button[id^=toggle_over]').addClass('d-none');
 			$('.btn-default').removeClass('btn-info');
 			$('.btn-default').removeClass('btn-dark');
@@ -391,7 +430,6 @@ function showWhat(txt, arr) {
 	count = show_count;
 	
 	$('span').text('총 ' + show_count + '건');
-	$('button#toggle_over').addClass('d-none');
 	
 }
 
@@ -499,9 +537,10 @@ function makeBox(data) {
 					id : data[i].idnum,
 					now : data[i].rCurrent,
 					endDate : data[i].endDate,
-					rDate : data[i].rDate
+					rDate : data[i].rDate,
+					desc : data[i].rDesc
 			};
-				
+			
 			now.push(obj);
 			
 			
